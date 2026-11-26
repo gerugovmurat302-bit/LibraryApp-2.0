@@ -155,3 +155,5 @@ namespace LibraryApp
         }
     }
 }
+
+// Проверка повторного запуска GitHub Actions
