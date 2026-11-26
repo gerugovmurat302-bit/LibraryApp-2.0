@@ -1,0 +1,24 @@
+name: Build and test LibraryApp
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore application
+        run: dotnet restore "LibraryApp_V4 Доработка/LibraryApp_V3 Доработка/LibraryApp__V3/LibraryApp_V3/LibraryAppV3/LibraryApp.csproj"
+      - name: Build application
+        run: dotnet build "LibraryApp_V4 Доработка/LibraryApp_V3 Доработка/LibraryApp__V3/LibraryApp_V3/LibraryAppV3/LibraryApp.csproj" --configuration Release --no-restore
+      - name: Run automated tests
+        run: dotnet test "tests/LibraryApp.Tests/LibraryApp.Tests.csproj" --configuration Release
